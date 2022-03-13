@@ -3,20 +3,26 @@ pragma solidity ^0.8.0;
 
 import "hardhat/console.sol";
 
-contract Greeter {
-    string private greeting;
-
-    constructor(string memory _greeting) {
-        console.log("Deploying a Greeter with greeting:", _greeting);
-        greeting = _greeting;
+contract Comments {
+    // Data structure
+    struct Comment {
+        uint32 id;
+        string topic;
+        address creator_address;
+        string message;
+        uint256 created_at;
     }
 
-    function greet() public view returns (string memory) {
-        return greeting;
+    // Notify users that a comment was added
+    event CommentAdded(Comment comment);
+
+    // Fetch a list of comments for a topic
+    function getComments(string calldata topic) public view returns(Comment[] memory) {
+        
     }
 
-    function setGreeting(string memory _greeting) public {
-        console.log("Changing greeting from '%s' to '%s'", greeting, _greeting);
-        greeting = _greeting;
+    // Add a new comment
+    function addComments(string calldata topic, string calldata message) public {
+        
     }
 }
