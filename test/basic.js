@@ -1,19 +1,30 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-describe("Greeter", function () {
-  it("Should return the new greeting once it's changed", async function () {
-    const Greeter = await ethers.getContractFactory("Greeter");
-    const greeter = await Greeter.deploy("Hello, world!");
-    await greeter.deployed();
+describe('Comments', function () { 
+  it("Should add and fetch comments successfully", async function() {
+    const Comments = await ethers.getContractFactory("Comments");
+    const comments = await Comments.deploy();
+    await comments.deployed();
 
-    expect(await greeter.greet()).to.equal("Hello, world!");
+    expect(await comments.getComments("first-blog-post")).to.be.lengthOf(0);
 
-    const setGreetingTx = await greeter.setGreeting("Hola, mundo!");
+    const tx1 = await comments.addComments(
+      "first-blog-post",
+      "first-comment"
+    );
+    await tx1.wait();
 
-    // wait until the transaction is mined
-    await setGreetingTx.wait();
+    expect(await comments.getComments("first-blog-post")).to.be.lengthOf(1);
+    expect(await comments.getComments("second-blog-post")).to.be.lengthOf(0);
 
-    expect(await greeter.greet()).to.equal("Hola, mundo!");
-  });
-});
+    const tx2 = await comments.addComments(
+      "second-blog-post",
+      "different comment thread"
+    );
+    await tx2.wait();
+
+    expect(await comments.getComments("first-blog-post")).to.be.lengthOf(1);
+    expect(await comments.getComments("second-blog-post")).to.be.lengthOf(1);
+  })
+ })
