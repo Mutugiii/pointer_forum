@@ -24,7 +24,8 @@ async function main() {
 
   const tx2 = await contract.addComments('blog-post', 'second-comment');
   await tx2.wait();
-
+  
+  console.log(await contract.getComments('blog-post'));
   console.log("Comments Contract deployed to:", contract.address);
 }
 
