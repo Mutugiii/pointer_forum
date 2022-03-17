@@ -1,4 +1,4 @@
-import * as react from "react";
+import * as React from "react";
 import { Text, Heading, HStack, Stack } from "@chakra-ui/react";
 import TimeAgo from "react-timeago";
 import Avatar from "@davatar/react";
